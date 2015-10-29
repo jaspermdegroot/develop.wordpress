@@ -814,8 +814,8 @@ function wp_get_attachment_image($attachment_id, $size = 'thumbnail', $icon = fa
 		// Generate 'srcset' and 'sizes' if not already present.
 		if ( empty( $attr['srcset'] ) ) {
 			$size_array = array( absint( $width ), absint( $height ) );
-			$srcset     = wp_get_attachment_image_srcset( $attachment_id, $size_array, $src, $image_meta );
-		 	$sizes      = wp_get_attachment_image_sizes( $size_array, $attachment_id, $image_meta );
+			$srcset     = wp_get_attachment_image_srcset( $attachment_id, $size_array, $src );
+		 	$sizes      = wp_get_attachment_image_sizes( $size_array, $attachment_id );
 
 			if ( $srcset && ( $sizes || ! empty( $attr['sizes'] ) ) ) {
 				$attr['srcset'] = $srcset;
@@ -947,6 +947,7 @@ function wp_get_attachment_image_srcset( $attachment_id, $size = 'medium', $imag
 
 	// Get the width and height of the image.
 	if ( is_array( $size ) ) {
+		$size_array = $size;
 		$image_width  = absint( $size[0] );
 		$image_height = absint( $size[1] );
 	} elseif ( is_string( $size ) ) {
